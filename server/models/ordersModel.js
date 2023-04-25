@@ -5,7 +5,15 @@ const orderSchema = mongoose.Schema({
         type: Boolean,
         required: [true, "Please add if order has been fulfilled"],
     },
-    items: {
+    items_id: {
+        type: [String],
+        required: [true, "Please add the items"],
+    },
+    items_name: {
+        type: [String],
+        required: [true, "Please add the items"],
+    },
+    items_category: {
         type: [String],
         required: [true, "Please add the items"],
     },
@@ -15,8 +23,10 @@ const orderSchema = mongoose.Schema({
     },
     total: {
         type: String
-    }
-
+    },
+    saved: {
+        type: String
+    },
 },
 {
     timestamps:true,

@@ -149,7 +149,7 @@ const getMostSelling = asyncHandler(async (req,res) => {
 const addToCart = asyncHandler(async (req,res) => {
     const {productId,userId} = req.body;
     const product = await Product.find({productId})
-    console.log(product)
+
     if (product) {
         const updatedUser = await User.findById(userId).updateOne({$push:{cart: productId}})
         if (updatedUser) {
@@ -168,7 +168,7 @@ const addToCart = asyncHandler(async (req,res) => {
 const addToSaved = asyncHandler(async (req,res) => {
     const {productId,userId} = req.body;
     const product = await Product.find({productId})
-    console.log(product)
+
     if (product) {
         const updatedUser = await User.findById(userId).updateOne({$push:{saved: productId}})
         if (updatedUser) {
@@ -187,7 +187,7 @@ const addToSaved = asyncHandler(async (req,res) => {
 const removeToSaved = asyncHandler(async (req,res) => {
     const {productId,userId} = req.body;
     const product = await Product.find({productId})
-    console.log(product)
+
     if (product) {
         const updatedUser = await User.findById(userId).updateOne({$pull: {saved: productId}})
         if (updatedUser) {
@@ -233,9 +233,9 @@ const getSavedById = asyncHandler(async (req,res) => {
     const {productId,userId} = req.body;
     const product = await Product.find({productId})
     if (product) {
-        console.log(product)
+
         const updatedUser = await User.find({_id:userId, saved: productId})
-        console.log(updatedUser)
+
     if (updatedUser.length) {
             res.status(200).json(updatedUser)
         }

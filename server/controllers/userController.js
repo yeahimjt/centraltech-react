@@ -147,24 +147,35 @@ const getProfile = asyncHandler (async(req,res)=> {
 
 const purchaseCart = asyncHandler(async(req,res)=> {
   const {userId, cart} = req.body;
-  console.log(userId)
   var original = cart.reduce((total, items)=>total+(Number(items.price)),0)
   var shipping = 8
   var tax = cart.reduce((total,item)=>total+(Number(item.sale) ? Number(item.sale) : Number(item.price)),0)*0.10
   var sales = Math.round(cart?.reduce((total,item)=>total+(Number(item.sale) ? Number(item.price)-Number(item.sale) : 0),0))
   var actual = cart.reduce((total,item)=>total+(Number(item.sale) ? Number(item.sale) : Number(item.price)),0)+tax+shipping
+  var saved = Math.round(cart?.reduce((total,item)=>total+(Number(item.sale) ? Number(item.price)-Number(item.sale) : 0),0))
+  console.log('Cart',cart)
+  const products = await Product.find({_id: cart})
+  let names=[] 
+  let category=[]
+  products.map((item,index) => {names[index]=item.name; category[index]=item.category})
+  console.log('Names',names)
   const createOrder = await Order.create({
     fulfilled: false,
-    items: cart,
+    items_id: cart,
+    items_name: names,
+    items_category: category,
     userId: userId,
-    total: String(actual)
+    total: String(actual),
+    saved: String(sales),
   })
-  console.log(createOrder)
+
   if (createOrder) {
     const updatedUser = await User.findByIdAndUpdate(userId, {$push: {orders: createOrder._id}})
+
     if (updatedUser) {
-      const updateUser = await User.findByIdAndUpdate(userId, {cart: []})
-      res.status(200).json(updatedUser.orders)
+      const updateUser = await User.findByIdAndUpdate(userId, {cart: []},)
+      const updateUserTotal = await User.findByIdAndUpdate(userId, {$inc: {total: actual, total_saved: sales}})
+      res.status(200).json(updateUserTotal.orders)
     } 
     else {
       res.status(400)

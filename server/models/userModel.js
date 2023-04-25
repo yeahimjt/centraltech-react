@@ -19,6 +19,8 @@ const userSchema = mongoose.Schema({
     past_orders: [String],
     saved: [String],
     notifications: [String],
+    total: Number,
+    total_saved: Number,
 },
 {
     timestamps:true,

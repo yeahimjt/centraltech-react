@@ -8,16 +8,19 @@ import {useNavigate} from 'react-router-dom'
 import UpdateUserModal from '../components/UpdateUserModal'
 import AlertModal from '../components/AlertModal'
 import { Current, Delete, Update, getProfile } from '../services/userActions'
+import { Link } from 'react-router-dom'
 import Beats from '../assets/beats.png'
 import { AiFillStar } from 'react-icons/ai'
 import { checkItemToSave, getCart, getSaved } from '../services/productActions'
 import ColumnCard from '../components/ColumnCard'
+import { getOrders } from '../services/orderActions'
 const Profile = ({user, setUser, token,setToken, smallerMenu, setSmallerMenu}) => {
     const [modal, setModal] = useState(false)
     const [deleteModal, setDeleteModal] = useState(false)
     const [profile, setProfile] = useState(null)
     const [saved, setSaved] = useState(null)
     const [cart, setCart] = useState(null)
+    const [orders, setOrders] = useState(null)
     const nav = useNavigate()
     function logout() {
         localStorage.setItem('access', '')
@@ -30,8 +33,9 @@ const Profile = ({user, setUser, token,setToken, smallerMenu, setSmallerMenu}) =
         getProfile(user?.id, setProfile)
         getSaved(user?.id, setSaved,4)
         getCart(user?.id, setCart,4)
+        getOrders(user?.id, {setOrders},4)
     },[])
-
+    console.log(orders)
     return (
     <Suspense fallback={<div>Hi/</div>}>
     <div className="bg-right-bg flex  justify-center nav:justify-normal h-screen  overflow-x-hidden ">
@@ -71,7 +75,6 @@ const Profile = ({user, setUser, token,setToken, smallerMenu, setSmallerMenu}) =
                             <circle cx="18.0909" cy="16.9304" r="3.32278" fill="#004299"/>
                             <path d="M25 16L20.2532 13.2594V18.7406L25 16ZM16 16.4747H20.7278V15.5253H16V16.4747Z" fill="white"/>
                         </svg>
-
                             <button className="text-white">Log Out</button>
                         </div>
                         <div className="flex flex-col gap-6 items-end mt-4 mb-4">
@@ -84,8 +87,9 @@ const Profile = ({user, setUser, token,setToken, smallerMenu, setSmallerMenu}) =
                     <div className="bg-white flex gap-4 flex-col p-6 shadow-all">
                         <div className="flex justify-between items-center">
                             <h1 className="text-2l">Saved</h1>
-                            <p>view all...</p>
+                            <Link to="/saved">view all...</Link>
                         </div>
+                        <hr/>
                         <div className="flex gap-6 justify-start saved:justify-center overflow-x-scroll scroll:overflow-x-hidden h-[100%] p-2">
                             {saved && saved.map((item)=> 
                                 <ColumnCard item={item}/>
@@ -95,17 +99,12 @@ const Profile = ({user, setUser, token,setToken, smallerMenu, setSmallerMenu}) =
                             }
                         </div>
                     </div>
-                    <div className="bg-white flex flex-col gap-4 shadow-all p-6">
-                        <div className="flex justify-between items-center">
-                            <h1 className="text-2l">Purchase History</h1>
-                            <p>view all...</p>
-                        </div>
-                    </div>
                     <div className="flex gap-4 flex-col bg-white shadow-all p-6">
                         <div className="flex justify-between items-center">
                             <h1 className="text-2l">Cart</h1>
-                            <p>view all...</p>
+                            <Link to="/cart">view all...</Link>
                         </div>
+                        <hr/>
                         <div className="flex gap-6 justify-start saved:justify-center overflow-x-scroll scroll:overflow-x-hidden h-[100%] p-2">
                             {cart && cart.map((item)=> 
                                 <ColumnCard item={item}/>
@@ -113,6 +112,35 @@ const Profile = ({user, setUser, token,setToken, smallerMenu, setSmallerMenu}) =
                             {cart?.length === 0 &&
                             <p>You currently have no items in your cart.</p>
                             }
+                        </div>
+                    </div>
+                    <div className="bg-white flex flex-col gap-4 shadow-all p-6">
+                        <div className="flex justify-between items-center">
+                            <h1 className="text-2l">Purchase History</h1>
+                            <Link to="/history">view all...</Link>
+                        </div>
+                        <hr/>
+                        <div>
+                            <table className="bg-white shadow-all w-full ">
+                                <tr className="">
+                                    <th className="border-b-2 p-2">Order Id</th>
+                                    <th className="border-b-2 p-2 text-left ">Products</th>
+                                    <th className="border-b-2 p-2 text-center">Status</th>
+                                    <th className="border-b-2 p-2 text-center">Saved</th>
+                                    <th className="border-b-2 p-2 text-center">Spent</th>
+                                    </tr>
+                                {orders?.map((item)=> 
+                                    <tr className="">
+                                    <td className="border-b-2 p-2">{item._id}</td>
+                                    <td className="border-b-2 p-2 text-left">{item?.items_name.map((single,index)=> 
+                                    <p className="hover:text-[color:var(--highlight-blue)] hover:cursor-pointer" onClick={()=>nav(`/product/${item?.items_category[index]}/${item?.items_id[index]}`)}>{single},</p>
+                                    )}</td>
+                                    <td className={item.fulfilled ? "border-b-2 p-2 text-center text-[color:var(--highlight-blue)]" : "border-b-2 p-2 text-center text-red-500"}>{item.fulfilled ? 'Fulfilled' : 'Pending'}</td>
+                                    <td className="border-b-2 p-2 text-center">${item.saved}</td>
+                                    <td className="border-b-2 p-2 text-center">${Math.round(item.total)}</td>
+                                </tr>
+                            )}
+                            </table>
                         </div>
                     </div>
                 </div>

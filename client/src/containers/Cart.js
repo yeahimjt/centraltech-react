@@ -5,16 +5,20 @@ import { getCart } from '../services/productActions'
 import { UserContext } from '../services/centralContext'
 import { Current, purchaseCart } from '../services/userActions'
 import Purchase from '../assets/login/purchase.png'
+import { useNavigate } from 'react-router-dom'
 
 const Cart = () => {
   const {user, setUser} = useContext(UserContext);
   const [cart, setCart] = useState(null)
+  const nav = useNavigate()
   useEffect(()=>{
     Current(localStorage.getItem('access'),setUser)
     getCart(user?.id,setCart,12);
   },[])
   const handlePurchase=()=> {
     purchaseCart(user?.id, cart)
+    setCart(null)
+    nav('/')
   }
   console.log(cart)
   return (

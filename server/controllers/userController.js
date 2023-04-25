@@ -159,9 +159,11 @@ const purchaseCart = asyncHandler(async(req,res)=> {
     userId: userId,
     total: String(actual)
   })
+  console.log(createOrder)
   if (createOrder) {
-    const updatedUser = await User.findByIdAndUpdate(userId, {orders: createOrder?._id, cart: []})
+    const updatedUser = await User.findByIdAndUpdate(userId, {$push: {orders: createOrder._id}})
     if (updatedUser) {
+      const updateUser = await User.findByIdAndUpdate(userId, {cart: []})
       res.status(200).json(updatedUser.orders)
     } 
     else {

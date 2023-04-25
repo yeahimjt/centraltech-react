@@ -48,7 +48,7 @@ const RowCard = ({user,recommended, setResponse, setErr, setAlert, setLoading}) 
         nav(`/product/${recommended?.category}/${recommended?._id}`)
     }
   return (
-    <div className="flex gap-4    p-4 shadow-all recommendbreak:flex-row flex-col bg-white hover:scale-[1.01] hover:cursor-pointer transition-all" onClick={()=>handleClick()}>
+    <div className="flex gap-4    p-4 shadow-all recommendbreak:flex-row flex-col bg-white hover:scale-[1.01] hover:cursor-pointer transition-all hover:rounded-2xl" onClick={()=>handleClick()}>
         <div className="flex items-center recommendbreak:justify-center mx-auto"><img className="w-[191px] h-[203px] object-scale-down" src={recommended?.path_url} alt="Recommended computer"/></div>
             <div className="flex flex-col flex-[1] justify-between p-4" value={recommended?._id}>
                 <h1 className="text-1l">{recommended?.name}</h1>

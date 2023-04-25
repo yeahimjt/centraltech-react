@@ -54,18 +54,18 @@ const Home = ({ setAlert, alert, smallerMenu, setSmallerMenu, loading,setLoading
               </div>
               <div className="flex justify-center gap-8 flex-wrap">
                 {popularHP?.map((item) => 
-                  <ColumnCard key={item._id} item={item}/>
+                  <ColumnCard key={item._id} item={item} setAlertt={setAlertt} setErr={setErr} setResponse={setResponse}/>
                 )}
               </div>
             </div>
             <div className="mt-[42px]">
               <h1 className="text-[color:var(--blue)] drop-shadow-text text-1l homemobbreak:text-2l mb-2" style={{textShadow:"0.5px 0.5px 0px black"}}>See Popular Categories</h1>
               <div className="flex flex-col justify-between recommendbreak:flex-row gap-4 recommendbreak:gap-0">
-                <div className="flex flex-[0.45] gap-4 items-center  bg-white shadow-all justify-center py-8 rounded-xl hover:scale-[1.01] hover:cursor-pointer transition-all">
+                <div className="flex flex-[0.45] gap-4 items-center  bg-white hover:bg-slate-100 shadow-all justify-center py-8 rounded-xl hover:scale-[1.01] hover:cursor-pointer transition-all">
                   <AiFillStar size={32} className="text-[color:var(--highlight-blue)]"/>
                   <h1>Top 5 Popular Brands</h1>
                 </div>
-                <div className="flex flex-[0.45] gap-4 items-center  bg-white shadow-all justify-center py-8 rounded-xl hover:scale-[1.01] hover:cursor-pointer transition-all">
+                <div className="flex flex-[0.45] gap-4 items-center  bg-white hover:bg-slate-100 shadow-all justify-center py-8 rounded-xl hover:scale-[1.01] hover:cursor-pointer transition-all">
                   <RiCoinsFill size={32} className="text-[color:var(--highlight-blue)]"/>
                   <h1>Most Selling</h1>
                 </div>

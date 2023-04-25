@@ -21,7 +21,7 @@ const Cart = () => {
     <div className="nav:w-[calc(100vw-300px)] relative nav:left-[300px]  bg-right-bg h-screen overflow-x-hidden">
         <TopNav />
         <div className="flex gap-4 p-6">
-          <div className="flex-[0.6] bg-white p-4"> 
+          <div className="flex-[0.6] bg-white shadow-all p-4"> 
             <div className="flex justify-between items-center">
               <h1 className="text-2l">Cart</h1>
               <p>view all...</p>
@@ -33,7 +33,7 @@ const Cart = () => {
               )}
             </div>
           </div>
-          <div className="flex-[0.4] bg-white p-4">
+          <div className="flex-[0.4] bg-white shadow-all p-4">
             <div className="flex justify-between items-center">
               <h1 className="text-2l">Checkout</h1>
               <p>view all...</p>

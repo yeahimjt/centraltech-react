@@ -12,7 +12,7 @@ import { ProductContext, UserContext } from './services/centralContext';
 import Explore from './containers/Explore';
 import Cart from './containers/Cart';
 import Saved from './containers/Saved';
-
+import History from './containers/History';
 function App() {
   const [user, setUser] = useState("")
   const [product, setProduct] = useState("")
@@ -33,9 +33,10 @@ function App() {
   // If user is already logged in but user state not propigated, call Current fetch to propigate
     useEffect(()=> {
       if (localStorage.getItem('access')) {
-      Current(localStorage.getItem('access'), setUser)
-    }
+        Current(localStorage.getItem('access'), setUser)
+      }
   },[])
+
   return (
     <div className="">
       <SideNav/>
@@ -45,9 +46,10 @@ function App() {
           <Route path="/"  element={<Home  setAlert={setAlert} alert={alert} smallerMenu={smallerMenu} setSmallerMenu={setSmallerMenu} setLoading={setLoading}/>}/>
           <Route path="/login"  element={<Login token={token} setToken={setToken} setAlert={setAlert} smallerMenu={smallerMenu} setSmallerMenu={setSmallerMenu}/>}/>
           <Route path="/profile" element={<Profile user={user} setUser={setUser} token={token} setToken={setToken} smallerMenu={smallerMenu} setSmallerMenu={setSmallerMenu}/>}/>
-          <Route path="/explore" element={<Explore/>}/>
-          <Route path="/cart" element={<Cart/>}/>
-          <Route path="/saved" element={<Saved/>}/>
+          <Route path="/explore" element={<Explore smallerMenu={smallerMenu} setSmallerMenu={setSmallerMenu}/>}/>
+          <Route path="/cart" element={<Cart smallerMenu={smallerMenu} setSmallerMenu={setSmallerMenu}/>}/>
+          <Route path="/saved" element={<Saved smallerMenu={smallerMenu} setSmallerMenu={setSmallerMenu}/>}/>
+          <Route path="/history" element={<History smallerMenu={smallerMenu} setSmallerMenu={setSmallerMenu} />}/>
           <Route path="/product/:category/:id" element={<Product loading={loading}/>}/>
       </Routes>
       </ProductContext.Provider>

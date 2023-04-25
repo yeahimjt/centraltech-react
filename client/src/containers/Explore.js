@@ -3,7 +3,7 @@ import TopNav from '../components/TopNav'
 import ColumnCard from '../components/ColumnCard'
 import { getCategory } from '../services/productActions'
 
-const Explore = () => {
+const Explore = ({smallerMenu, setSmallerMenu}) => {
     const [computer, setComputer] = useState(null)
     const [headphone, setHeadphone] = useState(null)
     const [laptop, setLaptop] = useState(null)
@@ -15,9 +15,9 @@ const Explore = () => {
     },[])
   return (
     <div className="">
-        <div className="nav:w-[calc(100vw-300px)] relative nav:left-[300px] bg-right-bg nav:h-screen h-full">
-            <TopNav/>
-            <div className="flex flex-col p-6 gap-6">
+        <div className={smallerMenu ? "nav:w-[calc(100vw-300px)] relative nav:left-[300px]  bg-right-bg nav:h-screen h-full" : "nav:w-[calc(100vw-300px)] relative nav:left-[300px] nav:top-[0px] bg-right-bg nav:h-screen h-full"}>
+            <TopNav smallerMenu={smallerMenu} setSmallerMenu={setSmallerMenu}/>
+            <div className={smallerMenu ? "flex flex-col p-6 gap-6 relative top-[200px] nav:top-[0px]" : "flex flex-col p-6 gap-6"}>
             <div className="mt-[42px] flex flex-col">
                     <div className="flex justify-between items-center">
                         <h1 className="text-[color:var(--blue)] drop-shadow-text text-1l homemobbreak:text-2l mb-2" style={{textShadow:"0.5px 0.5px 0px black"}}>See Popular Computers</h1>

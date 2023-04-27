@@ -1,6 +1,47 @@
 import React, { useContext } from "react"
 import { UserContext } from "./centralContext"
 
+export const updateProducts = (productId, name, description, price, sale, seller, category, {setProducts}) => {
+    if (!name && !description && !price && !sale && !seller && !category)
+    {
+
+    }
+    else {
+
+        fetch('http://localhost:5002/api/products/updateProduct', {
+            method: 'POST',
+            body: JSON.stringify({
+                productId,
+                name,
+                description,
+                price,
+                sale,
+                seller,
+                category
+            }),
+            headers: {
+                Accept: "application/json, text/plain, */*",
+                "Content-Type": "application/json",
+            }
+        }).then(res=>res.json()).then((data)=> {
+            setProducts(data)
+        })
+    }
+}
+
+export const getProducts = ({setProduct}) => {
+    fetch('http://localhost:5002/api/products/getProducts', {
+        method: 'GET',
+        headers: {
+            Accept: "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+        }
+        }).then(res=>res.json()).then((data)=> {
+            setProduct(data)
+            console.log(data)
+    })
+}
+
 export const getByID = (productID,{setProduct}) => {
     fetch('http://localhost:5002/api/products/getByID', {
         method: 'POST',
@@ -163,7 +204,7 @@ export const getSaved = (userId, setSaved,max) => {
 
 export const checkItemToSave =  (productId, userId,{setItemSaved}) => {
         fetch('http://localhost:5002/api/products/getSavedById', {
-                method: 'POST',
+            method: 'POST',
             body: JSON.stringify({
                 productId,
                 userId
@@ -181,5 +222,45 @@ export const checkItemToSave =  (productId, userId,{setItemSaved}) => {
                 setItemSaved(false)
             }
         })
+}
+
+export const searchFor = (query, remove, {setResults}) => {
+    if (remove) {
+        fetch('http://localhost:5002/api/products/searchFor', {
+                method: 'POST',
+                body: JSON.stringify({
+                    query,
+                    remove
+                }),
+                headers: {
+                    Accept: "application/json, text/plain, */*",
+                    "Content-Type": "application/json",
+                }
+            }).then(res=>res.json()).then((data)=>{
+                console.log(data)
+                if (data) {
+                    setResults(data)
+                }
+                throw new Error("search query failed.")
+            })
+    }
+    else {
+        fetch('http://localhost:5002/api/products/searchFor', {
+            method: 'POST',
+            body: JSON.stringify({
+                query,
+            }),
+            headers: {
+                Accept: "application/json, text/plain, */*",
+                "Content-Type": "application/json",
+            }
+        }).then(res=>res.json()).then((data)=>{
+            console.log(data)
+            if (data) {
+                setResults(data)
+            }
+            throw new Error("search query failed.")
+        })
+    }
 }
 

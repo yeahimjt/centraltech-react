@@ -1,16 +1,13 @@
 import React, {useEffect, useState, Suspense, useContext} from 'react'
-import SideNav from '../components/SideNav'
 import TopNav from '../components/TopNav'
 import {AiOutlineCheckCircle} from 'react-icons/ai'
 import Alert from '../components/Alert'
 import LaptopLeft from '../assets/laptop-left.png'
 import LaptopRight from '../assets/laptop-right.png'
-import Beats from '../assets/beats.png'
-import {AiFillStar, AiOutlineHeart, AiFillHeart} from 'react-icons/ai'
+import {AiFillStar} from 'react-icons/ai'
 import { getRecommended, getCategory, getSale } from '../services/productActions'
 import RowCard from '../components/RowCard'
 import ColumnCard from '../components/ColumnCard'
-import Coins from '../assets/Expensive Price.png'
 import {RiCoinsFill} from 'react-icons/ri'
 import RowItem from '../components/RowItem'
 import {MdError} from 'react-icons/md'
@@ -76,8 +73,8 @@ const Home = ({ setAlert, alert, smallerMenu, setSmallerMenu, loading,setLoading
             <div className="bg-[color:var(--blue)] h-[204px] px-8 py-4 rounded-md flex flex-col hover:scale-[1.01] hover:cursor-pointer transition-all">
               <h1 className="text-2l text-white z-20">Laptops from <br></br>top brands</h1>
               <div className="flex relative left-20 justify-end">
-                <img className="w-[260px] h-[146px] relative left-32 -top-12" src={LaptopLeft}/>
-                <img className="w-[233px] h-[178px] relative -left-2 -top-12" src={LaptopRight}/>
+                <img className="w-[260px] h-[146px] relative left-32 -top-12" src={LaptopLeft} alt="Laptop"/>
+                <img className="w-[233px] h-[178px] relative -left-2 -top-12" src={LaptopRight} alt="Laptop"/>
               </div>
             </div>
             <div className="mt-[71px]">
@@ -87,7 +84,7 @@ const Home = ({ setAlert, alert, smallerMenu, setSmallerMenu, loading,setLoading
               </div>
               <div className="flex flex-col gap-4">
                 {sale?.map((item)=>
-                  <RowItem key={item?._id} item={item} />
+                  <RowItem key={item?._id} item={item} setResponse={setResponse} setAlertt={setAlertt} setErr={setErr} />
                 )}
               </div>
             </div>

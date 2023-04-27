@@ -41,7 +41,7 @@ const Profile = ({user, setUser, token,setToken, smallerMenu, setSmallerMenu}) =
     <div className="bg-right-bg flex  justify-center nav:justify-normal h-screen  overflow-x-hidden ">
         <div className="nav:w-[calc(100vw-300px)]  relative nav:left-[300px] w-full">
             <TopNav smallerMenu={smallerMenu} setSmallerMenu={setSmallerMenu}/>
-            <div className="flex flex-col profilebreak:flex-row  nav:p-28  nav:pt-0  p-12 pt-6   gap-4 ">
+            <div className={smallerMenu ? "flex flex-col profilebreak:flex-row  nav:p-28  nav:pt-6 relative top-[200px] nav:top-[0px]  p-12 pt-6 gap-4":"flex flex-col profilebreak:flex-row  nav:p-28  nav:pt-0  p-12 pt-6 gap-4"}>
                 <div className="flex-[0.3] flex flex-col gap-4 ">
                     <div className="bg-white flex flex-col shadow-all">
                         <div className="flex justify-center items-center pt-6">
@@ -120,10 +120,10 @@ const Profile = ({user, setUser, token,setToken, smallerMenu, setSmallerMenu}) =
                             <Link to="/history">view all...</Link>
                         </div>
                         <hr/>
-                        <div>
+                        <div className='overflow-scroll'>
                             <table className="bg-white shadow-all w-full ">
                                 <tr className="">
-                                    <th className="border-b-2 p-2">Order Id</th>
+                                    <th className="border-b-2 p-2 w-[50px]">Order Id</th>
                                     <th className="border-b-2 p-2 text-left ">Products</th>
                                     <th className="border-b-2 p-2 text-center">Status</th>
                                     <th className="border-b-2 p-2 text-center">Saved</th>
@@ -131,14 +131,14 @@ const Profile = ({user, setUser, token,setToken, smallerMenu, setSmallerMenu}) =
                                     </tr>
                                 {orders?.map((item)=> 
                                     <tr className="">
-                                    <td className="border-b-2 p-2">{item._id}</td>
-                                    <td className="border-b-2 p-2 text-left">{item?.items_name.map((single,index)=> 
-                                    <p className="hover:text-[color:var(--highlight-blue)] hover:cursor-pointer" onClick={()=>nav(`/product/${item?.items_category[index]}/${item?.items_id[index]}`)}>{single},</p>
+                                    <td className="border-b-2 p-[0.5] text-xss history:text-base ">{item._id}</td>
+                                    <td className="border-b-2 p-0 text-left text-xss history:text-base">{item?.items_name.map((single,index)=> 
+                                    <p className="hover:text-[color:var(--highlight-blue)] hover:cursor-pointer text-xss history:text-base" onClick={()=>nav(`/product/${item?.items_category[index]}/${item?.items_id[index]}`)}>{single},</p>
                                     )}</td>
-                                    <td className={item.fulfilled ? "border-b-2 p-2 text-center text-[color:var(--highlight-blue)]" : "border-b-2 p-2 text-center text-red-500"}>{item.fulfilled ? 'Fulfilled' : 'Pending'}</td>
-                                    <td className="border-b-2 p-2 text-center">${item.saved}</td>
-                                    <td className="border-b-2 p-2 text-center">${Math.round(item.total)}</td>
-                                </tr>
+                                    <td className={item.fulfilled ? "border-b-2 p-0 text-center text-[color:var(--highlight-blue)] text-xss history:text-base" : "border-b-2 p-0 text-center text-red-500 text-xss history:text-base"}>{item.fulfilled ? 'Fulfilled' : 'Pending'}</td>
+                                    <td className="border-b-2 p-0 text-center text-xss history:text-base">${item.saved}</td>
+                                    <td className="border-b-2 p-0 history:p-2 text-center text-xss history:text-base">${Math.round(item.total)}</td>
+                                  </tr>
                             )}
                             </table>
                         </div>

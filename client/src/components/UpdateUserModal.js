@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { AiFillCloseCircle } from 'react-icons/ai'
 import { Current, Update } from '../services/userActions'
 
 function Modal({setModal, options, user, setUser, setToken}) {
-    const [input, setInput] = useState(null)
     const [username, setUsername] = useState(null)
     const [email, setEmail] = useState(null)
     const [password, setPassword] = useState(null)

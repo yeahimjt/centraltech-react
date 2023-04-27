@@ -13,6 +13,8 @@ import Explore from './containers/Explore';
 import Cart from './containers/Cart';
 import Saved from './containers/Saved';
 import History from './containers/History';
+import Search from './containers/Search';
+import Admin from './containers/Admin';
 function App() {
   const [user, setUser] = useState("")
   const [product, setProduct] = useState("")
@@ -50,7 +52,9 @@ function App() {
           <Route path="/cart" element={<Cart smallerMenu={smallerMenu} setSmallerMenu={setSmallerMenu}/>}/>
           <Route path="/saved" element={<Saved smallerMenu={smallerMenu} setSmallerMenu={setSmallerMenu}/>}/>
           <Route path="/history" element={<History smallerMenu={smallerMenu} setSmallerMenu={setSmallerMenu} />}/>
-          <Route path="/product/:category/:id" element={<Product loading={loading}/>}/>
+          <Route path="/search/:query" element={<Search smallerMenu={smallerMenu} setSmallerMenu={setSmallerMenu} />}/>
+          <Route path="/product/:category/:id" element={<Product smallerMenu={smallerMenu} setSmallerMenu={setSmallerMenu} loading={loading}/>}/>
+          <Route path="/admin" element={<Admin smallerMenu={smallerMenu} setSmallerMenu={setSmallerMenu}/>} />
       </Routes>
       </ProductContext.Provider>
         </UserContext.Provider>

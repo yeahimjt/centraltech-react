@@ -1,19 +1,28 @@
-import React, { useState,useRef } from 'react'
-import {TbBellFilled,TbBellRingingFilled} from 'react-icons/tb'
-import {BsFillPersonFill,BsFillPersonCheckFill,BsPersonFillCheck} from 'react-icons/bs'
+import React, { useState} from 'react'
+import {TbBellFilled} from 'react-icons/tb'
+import {BsFillPersonFill,BsPersonFillCheck} from 'react-icons/bs'
 import {ImCart} from 'react-icons/im'
 import {RxHamburgerMenu} from 'react-icons/rx'
 import {AiOutlineSearch} from 'react-icons/ai'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 const TopNav = ({smallerMenu,setSmallerMenu}) => {
-  const windowSize = useRef([window.innerWidth, window.innerHeight])
+  const nav = useNavigate()
+  const [query, setQuery] = useState(null)
+  const search=()=> {
+    nav(`/search/${query}`)
+  }
+  const handleKeyDown =(event)=> {
+    if (event.key === 'Enter'){
+      nav(`/search/${query}`)
+    }
+  }
   return (
     <>
     <div className="w-full flex flex-col-reverse gap-4 topnavbreak:gap-0 topnavbreak:flex-row p-6 pb-0">
       <div className="topnavbreak:w-[70%] flex items-center justify-end">
-        <input type="text" className="bg-white w-[100%] text-black p-4 px-8 border-[0.5px] border-[color:var(--black)]" placeholder="Search for items by name or category..."/>
+        <input type="text" className="bg-white w-[100%] text-black p-4 px-8 border-[0.5px] border-[color:var(--black)]" placeholder="Search for items by name or category..." onChange={(e)=>setQuery(e.target.value)} onKeyDown={handleKeyDown}/>
         <div className="absolute mr-2 hover:cursor-pointer  p-2">
-          <AiOutlineSearch className="" size={32}/>
+          <AiOutlineSearch className="text-[color:var(--highlight-blue)] hover:scale-110 hover:cursor-pointer" size={32} onClick={()=>search()}/>
         </div>
       </div>
       <div className="topnavbreak:w-[30%] flex justify-evenly items-center">

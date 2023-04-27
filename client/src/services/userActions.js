@@ -1,4 +1,18 @@
 
+export function getUsers(setUsers) {
+    fetch('http://localhost:5002/api/users/getUsers', {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json'
+    }
+    })
+    .then((response)=> response.json()).then(data=>{
+        if (data) {
+            setUsers(data)
+        }
+    })
+}
+
 // Register user
 export function Register(username,email,password, setUser, setRegisterErr) {
     fetch('http://localhost:5002/api/users/register', {
@@ -52,7 +66,6 @@ export const loginUser = (username,password, setToken, setFinished, setAlert) =>
 
 // Update user
 export function Update(id,setUser, setToken, username,email,password) {
-    console.log(id, setUser, username,email, password)
     fetch('http://localhost:5002/api/users/update', {
         method: 'POST',
         body: JSON.stringify({
@@ -66,7 +79,10 @@ export function Update(id,setUser, setToken, username,email,password) {
             "Content-Type": "application/json",
         }
     }).then(res=>res.json()).then((data)=> {
-        setToken(data.accessToken)
+        if (setToken === null) {
+        } else {
+            setToken(data.accessToken)
+        }
     })
 }
 
@@ -139,4 +155,21 @@ export const purchaseCart = async (userId,cart) => {
         console.log(data)
     })
     console.log(userId,cart)
+}
+
+export const removeCartItem = async (userId, id, {setResponse}) => {
+    fetch('http://localhost:5002/api/users/removeCartItem',{
+        method: 'POST',
+        body: JSON.stringify({
+            userId,
+            id
+        }),
+        headers: {
+            Accept: "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+        }
+    }).then((res)=>res.json()).then(data=> {
+        console.log(data)
+        setResponse(["Successfully removed item","The item has been removed from your cart."])
+    })
 }

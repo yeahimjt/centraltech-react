@@ -10,7 +10,7 @@ function AlertModal  ({setDeleteModal, token, setToken, userId, setUser})  {
         setDeleteModal(false)
         nav('/')
     }
-  return (
+    return (
     <div className="w-[99vw] h-screen  top-0 left-0 flex justify-center items-center overflow-x-hidden fixed">
         <div className="bg-white rounded-modal w-[536px]">
             <div className="flex  justify-center flex-col gap-4 px-8 p-4">
@@ -24,7 +24,7 @@ function AlertModal  ({setDeleteModal, token, setToken, userId, setUser})  {
             </div>
         </div>
     </div>
-  )
+    )
 }
 
 export default AlertModal

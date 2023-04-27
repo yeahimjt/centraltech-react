@@ -1,8 +1,6 @@
-import React, {useState, useEffect, useContext} from 'react'
+import React, {useState, useContext} from 'react'
 import { useNavigate } from 'react-router-dom'
-import SideNav from '../components/SideNav'
 import TopNav from '../components/TopNav'
-import LoginPic from '../assets/login/login.png'
 import {  Register, loginUser } from '../services/userActions'
 import {BiTestTube} from 'react-icons/bi'
 import { UserContext } from '../services/centralContext'
@@ -30,8 +28,16 @@ const Login = ({  token,setToken, setAlert, smallerMenu,setSmallerMenu }) => {
 
     // Handle any submits
     const handleLoginSubmit = (e) => {
-        const res = loginUser(username,password, setToken, setFinished,setAlert)
-        console.log(res)
+        if (!username || !password) {
+            setLoginErr('All fields required.')
+        }
+        else {
+            const res = loginUser(username,password, setToken, setFinished,setAlert)
+            nav('/')
+        }
+    }
+    const handleTestLoginSubmit = () => {
+        const res = loginUser('test', 'test', setToken, setFinished, setAlert)
         nav('/')
 
     }
@@ -42,8 +48,6 @@ const Login = ({  token,setToken, setAlert, smallerMenu,setSmallerMenu }) => {
             Register(username,email,password, setUser, setRegisterErr)
         }
     }
-
-
    const handleAdminSubmit = (e) => {
 
    }
@@ -62,11 +66,11 @@ const Login = ({  token,setToken, setAlert, smallerMenu,setSmallerMenu }) => {
                     <div className="flex flex-col p-6 w-[80%] mx-auto gap-6">
                         <section className="flex flex-col">
                             <label>Username *</label>
-                            <input className="bg-[color:var(--light)] px-2 py-1" onChange={handleUsername}/>
+                            <input className="bg-[color:var(--light)] px-2 py-1" onChange={handleUsername} required/>
                         </section>
                         <section className="flex flex-col">
                             <label>Password *</label>
-                            <input className="bg-[color:var(--light)] px-2 py-1" onChange={handlePassword}/>
+                            <input className="bg-[color:var(--light)] px-2 py-1" onChange={handlePassword} required/>
                         </section>
                         <div className="flex gap-4 flex-col loginbtnbreak:flex-row">
                             <div className="flex-[0.5] flex gap-4 justify-center bg-[color:var(--light-blue)] items-center hover:scale-105 hover:cursor-pointer transition-all rounded-md px-4 py-2 " onClick={()=>handleLoginSubmit()}>
@@ -78,7 +82,7 @@ const Login = ({  token,setToken, setAlert, smallerMenu,setSmallerMenu }) => {
                                 </svg>
                                 <button className="">Login</button>
                             </div>
-                            <div className="flex-[0.5] flex gap-4 justify-center bg-[color:var(--light-blue)] items-center hover:scale-105 hover:cursor-pointer transition-all rounded-md px-4 py-2 ">
+                            <div className="flex-[0.5] flex gap-4 justify-center bg-[color:var(--light-blue)] items-center hover:scale-105 hover:cursor-pointer transition-all rounded-md px-4 py-2 " onClick={()=>handleTestLoginSubmit()}>
                                 <BiTestTube size={22}/>
                                 <button className="">Login Test</button>
                             </div>
@@ -116,7 +120,7 @@ const Login = ({  token,setToken, setAlert, smallerMenu,setSmallerMenu }) => {
                         </div>
                     </div>
                 </div>
-                <div className="col-span-2 h-[320px] bg-white shadow-all flex justify-center items-center">
+                {/* <div className="col-span-2 h-[320px] bg-white shadow-all flex justify-center items-center">
                     <div className="p-6">
                         <h1 className="font-extrabold text-2l text-center">Use Admin Account</h1>
                         <p className="font-normal text-1l text-center">To achieve the full experience of this e-commerce application it is recommended to utilize the admin account to achieve full privileges.</p>
@@ -128,7 +132,7 @@ const Login = ({  token,setToken, setAlert, smallerMenu,setSmallerMenu }) => {
                             <button className="">Login Admin</button>
                         </div>
                     </div>
-                </div>
+                </div> */}
                 </div>
             </div>
             </div>

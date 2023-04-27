@@ -21,7 +21,8 @@ module.exports = {
         slideright: 'slideright 0.5s ease-in-out forwards',
         scaleup: 'scaleup 2.5s ease-in-out forwards',
         rotateShake: 'rotateShake 2s ease-in-out forwards',
-        bellShake: 'bellShake 2s ease-in-out infinite'
+        bellShake: 'bellShake 2s ease-in-out infinite',
+        spinn: 'spinn 10s linear infinite',
       },
       borderRadius: {
         'modal': '0px 30px 0px 0px',
@@ -49,6 +50,18 @@ module.exports = {
         // Product page screens
         'productbreak':'974px',
         'productimgbreak': '503px',
+        // History page screens
+        'history':'648px',
+        'td': '609px',
+        // Explore break
+        'category':'604px',
+        'categories': '374px',
+        'images': '1123px',
+        'filters': '903px',
+        'recom': '1011px',
+        // Search page screens
+        'searchbreak':'936px',
+        'productsbreak':'820px',
       },
       boxShadow: {
         'login': '0px 4px 4px rgba(0, 0, 0, 0.25);',
@@ -62,6 +75,9 @@ module.exports = {
         slowfade: {
           from: { opacity: 0 },
           to: { opacity: 1 },
+        },
+        spinn: {
+          '100%': {transform: 'rotate(360deg)'}
         },
         slideup: {
           from: { opacity: 0, transform: 'translateY(25%)' },

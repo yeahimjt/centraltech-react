@@ -10,11 +10,14 @@ import { useNavigate } from 'react-router-dom'
 const Cart = () => {
   const {user, setUser} = useContext(UserContext);
   const [cart, setCart] = useState(null)
+  const [response,setResponse] = useState(null)
+  const [alertt,setAlertt] = useState(null)
+  const [err,setErr] = useState(null)
   const nav = useNavigate()
   useEffect(()=>{
     Current(localStorage.getItem('access'),setUser)
     getCart(user?.id,setCart,12);
-  },[])
+  },[response])
   const handlePurchase=()=> {
     purchaseCart(user?.id, cart)
     setCart(null)
@@ -28,19 +31,17 @@ const Cart = () => {
           <div className="flex-[0.6] bg-white shadow-all p-4"> 
             <div className="flex justify-between items-center">
               <h1 className="text-2l">Cart</h1>
-              <p>view all...</p>
             </div>
             <hr/>
             <div className="mt-6">
               {cart?.length > 0 && cart?.map((item)=>
-                <RowItem key={item?._id} item={item}/>
+                <RowItem key={item?._id} item={item} setResponse={setResponse} setAlertt={setAlertt} setErr={setErr}/>
               )}
             </div>
           </div>
           <div className="flex-[0.4] bg-white shadow-all p-4">
             <div className="flex justify-between items-center">
               <h1 className="text-2l">Checkout</h1>
-              <p>view all...</p>
             </div>
             <hr/>
             <div className="flex flex-col gap-4 w-[75%] mx-auto mt-6">

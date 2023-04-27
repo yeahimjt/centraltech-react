@@ -2,8 +2,19 @@ const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Order = require("../models/ordersModel")
-
+const User = require("../models/userModel")
 const createOrder = asyncHandler(async (req, res) => {
+});
+
+const allOrders = asyncHandler(async(req,res)=> {
+    const usersOrders = await Order.find({})
+    if (usersOrders) {
+        res.status(200).json(usersOrders)
+    }
+    else {
+        res.status(400)
+        throw new Error("No orders found.")
+    }
 });
 
 const getOrders = asyncHandler(async(req,res)=> {
@@ -18,5 +29,14 @@ const getOrders = asyncHandler(async(req,res)=> {
         throw new Error("No orders found.")
     }
 });
+const getSpendings = asyncHandler(async(req,res)=> {
+    const {userId} = req.body;
+    const userSpending = await User.findById(userId)
+    if (userSpending) {
+        res.status(200).json({
+            total: userSpending.total,
+            total_saved: userSpending.total_saved})
+    }
+})
 
-module.exports = {createOrder, getOrders}
+module.exports = {createOrder,allOrders, getOrders, getSpendings}

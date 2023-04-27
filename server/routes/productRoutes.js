@@ -1,6 +1,6 @@
 const express = require("express");
 const Product = require("../models/productModel")
-const {createProduct, getByID,getCategory, getSale, getRecommended, getTopBrands,getMostSelling, addToCart, addToSaved, getSavedById, removeToSaved, getSaved, getProfile, getCart} = require("../controllers/productController")
+const {createProduct, getByID,getCategory, getSale, getRecommended, getTopBrands,getMostSelling, addToCart, addToSaved, getSavedById, removeToSaved, getSaved, getProfile, getCart, searchFor, getProducts, updateProduct} = require("../controllers/productController")
 const validateToken = require("../middleware/validateTokenHandler");
 const csvtojson = require("csvtojson")
 const router = express.Router();
@@ -28,7 +28,7 @@ router.post('/drop', async(req,res)=> {
     }
 })
 
-router.post("/create", createProduct)
-router.post("/getCategory", getCategory).post('/getByID', getByID).post('/addToCart', addToCart).post('/addToSaved',addToSaved).post('/getSavedById', getSavedById).post('/removeToSaved', removeToSaved).post('/getSaved', getSaved).post('/getCart', getCart)
-router.get("/getSale", getSale).get("/getRecommended", getRecommended).get("/getTopBrands", getTopBrands).get("/getMostSelling", getMostSelling)
+router.post("/create", createProduct).post('/updateProduct', updateProduct)
+router.post("/getCategory", getCategory).post('/getByID', getByID).post('/addToCart', addToCart).post('/addToSaved',addToSaved).post('/getSavedById', getSavedById).post('/removeToSaved', removeToSaved).post('/getSaved', getSaved).post('/getCart', getCart).post('/searchFor',searchFor)
+router.get("/getSale", getSale).get("/getRecommended", getRecommended).get("/getTopBrands", getTopBrands).get("/getMostSelling", getMostSelling).get('/getProducts',getProducts)
 module.exports = router

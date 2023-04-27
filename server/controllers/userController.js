@@ -6,6 +6,16 @@ const Product = require("../models/productModel");
 const Order = require("../models/ordersModel")
 var ObjectId = require('mongodb').ObjectId;
 
+const getUsers = asyncHandler(async(req,res)=>{
+  const users = await User.find({})
+  if (users){
+    res.status(200).json({users})
+  }else{
+    res.status(400)
+    throw new Error("Could not get users")
+  }
+})
+
 //@desc Register a user
 //@route POST /api/users/register
 //@access public
@@ -187,4 +197,17 @@ const purchaseCart = asyncHandler(async(req,res)=> {
     throw new Error("Creating new order failed.")
   }
 })
-module.exports = {registerUser, loginUser, updateUser, currentUser ,deleteUser, getProfile, purchaseCart}
+
+const removeCartItem = asyncHandler(async(req,res)=> {
+  const {userId, id} = req.body;
+  const updatedUser = await User.findByIdAndUpdate(userId, {$pull: {cart: id}})
+  if (updatedUser) {
+    res.status(200).json(updatedUser)
+  }
+  else {
+    res.status(400)
+    throw new Error("Removing item from cart failed.")
+  }
+})
+
+module.exports = {registerUser, loginUser, updateUser, currentUser ,deleteUser, getProfile, purchaseCart, removeCartItem, getUsers}

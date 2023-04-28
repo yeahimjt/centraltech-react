@@ -43,7 +43,7 @@ export const getProducts = ({setProduct}) => {
 }
 
 export const getByID = (productID,{setProduct}) => {
-    fetch('http://localhost:5002/api/products/getByID', {
+    fetch('https://centraltech.onrender.com/api/products/getByID', {
         method: 'POST',
         body: JSON.stringify({
             productID

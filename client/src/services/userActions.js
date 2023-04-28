@@ -34,7 +34,7 @@ export function Register(username,email,password, setUser, setRegisterErr) {
 // Login user
 export const loginUser = (username,password, setToken, setFinished, setAlert) => {
     if (username && password) {
-        fetch('http://centraltech.onrender.com:5002/api/users/login', {
+        fetch('http://centraltech.onrender.com/api/users/login', {
             method: "POST",
             headers: {
               Accept: "application/json, text/plain, */*",

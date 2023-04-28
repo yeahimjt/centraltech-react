@@ -34,7 +34,7 @@ export function Register(username,email,password, setUser, setRegisterErr) {
 // Login user
 export const loginUser = (username,password, setToken, setFinished, setAlert) => {
     if (username && password) {
-        fetch('http://localhost:5002/api/users/login', {
+        fetch('http://centraltech.onrender.com:5002/api/users/login', {
             method: "POST",
             headers: {
               Accept: "application/json, text/plain, */*",
@@ -66,7 +66,7 @@ export const loginUser = (username,password, setToken, setFinished, setAlert) =>
 
 // Update user
 export function Update(id,setUser, setToken, username,email,password) {
-    fetch('http://localhost:5002/api/users/update', {
+    fetch('http://centraltech.onrender.com:5002/api/users/update', {
         method: 'POST',
         body: JSON.stringify({
             userId: id,

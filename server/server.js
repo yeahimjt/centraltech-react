@@ -8,6 +8,10 @@ const app = express();
 const port = process.env.PORT || 5000;
 app.use(cors())
 app.use(express.json())
+app.get('/', (req,res)=> {
+    res.setHeader("Access-Control-Allow-Credentials", true)
+    res.send("API is running...")
+})
 app.use('/api/orders', require("./routes/orderRoutes"))
 app.use('/api/users', require("./routes/userRoutes"))
 app.use('/api/products', require("./routes/productRoutes"))

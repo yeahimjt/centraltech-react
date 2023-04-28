@@ -8,7 +8,7 @@ export const updateProducts = (productId, name, description, price, sale, seller
     }
     else {
 
-        fetch('http://localhost:5002/api/products/updateProduct', {
+        fetch('https://centraltech.onrender.com/api/products/updateProduct', {
             method: 'POST',
             body: JSON.stringify({
                 productId,
@@ -30,7 +30,7 @@ export const updateProducts = (productId, name, description, price, sale, seller
 }
 
 export const getProducts = ({setProduct}) => {
-    fetch('http://localhost:5002/api/products/getProducts', {
+    fetch('https://centraltech.onrender.com/api/products/getProducts', {
         method: 'GET',
         headers: {
             Accept: "application/json, text/plain, */*",
@@ -60,7 +60,7 @@ export const getByID = (productID,{setProduct}) => {
 
 
 export const getRecommended = ({setRecommended}) => {
-    fetch('http://localhost:5002/api/products/getRecommended', {
+    fetch('https://centraltech.onrender.com/api/products/getRecommended', {
         method: 'GET',
         headers: {
             Accept: "application/json, text/plain, */*",
@@ -72,7 +72,7 @@ export const getRecommended = ({setRecommended}) => {
 }
 
 export const getCategory = async (category, {setPopularHP}, max) => {
-    fetch('http://localhost:5002/api/products/getCategory', {
+    fetch('https://centraltech.onrender.com/api/products/getCategory', {
         method: 'POST',
         body: JSON.stringify({
             category
@@ -95,7 +95,7 @@ export const getCategory = async (category, {setPopularHP}, max) => {
 }
 
 export const getSale = ({setSale},max) => {
-    fetch('http://localhost:5002/api/products/getSale', {
+    fetch('https://centraltech.onrender.com/api/products/getSale', {
         method: 'GET',
         headers: {
             Accept: "application/json, text/plain, */*",
@@ -107,7 +107,7 @@ export const getSale = ({setSale},max) => {
 }
 
 export const addItemToCart =  (productId,userId,{setResponse}) => {
-    fetch('http://localhost:5002/api/products/addToCart', {
+    fetch('https://centraltech.onrender.com/api/products/addToCart', {
         method: 'POST',
         body: JSON.stringify({
             productId,
@@ -123,7 +123,7 @@ export const addItemToCart =  (productId,userId,{setResponse}) => {
 }
 
 export const getCart = (userId, setCart,max) => {
-    fetch('http://localhost:5002/api/products/getCart', {
+    fetch('https://centraltech.onrender.com/api/products/getCart', {
         method: 'POST',
         body: JSON.stringify({
             userId
@@ -141,7 +141,7 @@ export const getCart = (userId, setCart,max) => {
 }
 
 export const addItemToSave =  (productId, userId, {setResponse, setItemSaved}) => {
-    fetch('http://localhost:5002/api/products/addToSaved', {
+    fetch('https://centraltech.onrender.com/api/products/addToSaved', {
         method: 'POST',
         body: JSON.stringify({
             productId,
@@ -158,7 +158,7 @@ export const addItemToSave =  (productId, userId, {setResponse, setItemSaved}) =
 }
 
 export const removeItemToSave =  (productId, userId, {setResponse,setItemSaved}) => {
-    fetch('http://localhost:5002/api/products/removeToSaved', {
+    fetch('https://centraltech.onrender.com/api/products/removeToSaved', {
             method: 'POST',
         body: JSON.stringify({
             productId,
@@ -183,7 +183,7 @@ export const removeItemToSave =  (productId, userId, {setResponse,setItemSaved})
 }
 
 export const getSaved = (userId, setSaved,max) => {
-    fetch('http://localhost:5002/api/products/getSaved', {
+    fetch('https://centraltech.onrender.com/api/products/getSaved', {
                 method: 'POST',
             body: JSON.stringify({
                 userId
@@ -203,7 +203,7 @@ export const getSaved = (userId, setSaved,max) => {
 }
 
 export const checkItemToSave =  (productId, userId,{setItemSaved}) => {
-        fetch('http://localhost:5002/api/products/getSavedById', {
+        fetch('https://centraltech.onrender.com/api/products/getSavedById', {
             method: 'POST',
             body: JSON.stringify({
                 productId,
@@ -226,7 +226,7 @@ export const checkItemToSave =  (productId, userId,{setItemSaved}) => {
 
 export const searchFor = (query, remove, {setResults}) => {
     if (remove) {
-        fetch('http://localhost:5002/api/products/searchFor', {
+        fetch('https://centraltech.onrender.com/api/products/searchFor', {
                 method: 'POST',
                 body: JSON.stringify({
                     query,
@@ -245,7 +245,7 @@ export const searchFor = (query, remove, {setResults}) => {
             })
     }
     else {
-        fetch('http://localhost:5002/api/products/searchFor', {
+        fetch('https://centraltech.onrender.com/api/products/searchFor', {
             method: 'POST',
             body: JSON.stringify({
                 query,

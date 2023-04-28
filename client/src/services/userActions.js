@@ -66,7 +66,7 @@ export const loginUser = (username,password, setToken, setFinished, setAlert) =>
 
 // Update user
 export function Update(id,setUser, setToken, username,email,password) {
-    fetch('http://centraltech.onrender.com:5002/api/users/update', {
+    fetch('https://centraltech.onrender.com/api/users/update', {
         method: 'POST',
         body: JSON.stringify({
             userId: id,
@@ -88,7 +88,7 @@ export function Update(id,setUser, setToken, username,email,password) {
 
 // Delete User
 export const Delete = (token, setToken,userId, setUser) => {
-    fetch('http://localhost:5002/api/users/delete', {
+    fetch('https://centraltech.onrender.com/api/users/delete', {
         method: 'DELETE',
         headers: {
             Accept: "application/json, text/plain, */*",
@@ -108,7 +108,7 @@ export const Delete = (token, setToken,userId, setUser) => {
 
 // Get user
 export const Current = async (token, setUser) => {
-    fetch('http://localhost:5002/api/users/current', {
+    fetch('https://centraltech.onrender.com/api/users/current', {
         method: 'GET',
         headers: {
             Accept: "application/json, text/plain, */*",
@@ -124,7 +124,7 @@ export const Current = async (token, setUser) => {
 }
 
 export const getProfile = async (userId, setProfile) => {
-    fetch('http://localhost:5002/api/users/getProfile', {
+    fetch('https://centraltech.onrender.com/api/users/getProfile', {
         method: 'POST',
         body: JSON.stringify({
             userId
@@ -141,7 +141,7 @@ export const getProfile = async (userId, setProfile) => {
 }
 
 export const purchaseCart = async (userId,cart) => {
-    fetch('http://localhost:5002/api/users/purchaseCart', {
+    fetch('https://centraltech.onrender.com/api/users/purchaseCart', {
         method: 'POST',
         body: JSON.stringify({
             userId,
@@ -158,7 +158,7 @@ export const purchaseCart = async (userId,cart) => {
 }
 
 export const removeCartItem = async (userId, id, {setResponse}) => {
-    fetch('http://localhost:5002/api/users/removeCartItem',{
+    fetch('https://centraltech.onrender.com/api/users/removeCartItem',{
         method: 'POST',
         body: JSON.stringify({
             userId,

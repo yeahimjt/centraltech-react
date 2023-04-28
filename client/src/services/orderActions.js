@@ -1,5 +1,5 @@
 export const getOrders =  (userId, {setOrders},max) => {
-    fetch('http://localhost:5002/api/orders/getOrders', {
+    fetch('https://centraltech.onrender.com/api/orders/getOrders', {
         method:"POST",
         body: JSON.stringify({
             userId
@@ -20,7 +20,7 @@ export const getOrders =  (userId, {setOrders},max) => {
 }
 
 export const allOrders = (setOrders) => {
-    fetch('http://localhost:5002/api/orders/allOrders', {
+    fetch('https://centraltech.onrender.com/api/orders/allOrders', {
         method:"GET",
         headers: {
             Accept: "application/json, text/plain, */*",
@@ -34,7 +34,7 @@ export const allOrders = (setOrders) => {
 }
 
 export const userSpendings = (userId, {setUserSpending}) => {
-    fetch('http://localhost:5002/api/orders/getSpendings', {
+    fetch('https://centraltech.onrender.com/api/orders/getSpendings', {
         method:"POST",
         body: JSON.stringify({
             userId

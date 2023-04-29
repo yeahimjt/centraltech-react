@@ -15,7 +15,7 @@ export function getUsers(setUsers) {
 
 // Register user
 export function Register(username,email,password, setUser, setRegisterErr) {
-    fetch('http://localhost:5002/api/users/register', {
+    fetch('https://centraltech.onrender.com/api/users/register', {
     method: 'POST',
     body: JSON.stringify({
         username: username,

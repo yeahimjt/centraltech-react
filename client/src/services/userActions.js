@@ -1,6 +1,6 @@
 
 export function getUsers(setUsers) {
-    fetch('http://localhost:5002/api/users/getUsers', {
+    fetch('https://centraltech.onrender.com/api/users/getUsers', {
     method: 'GET',
     headers: {
         'Content-Type': 'application/json'

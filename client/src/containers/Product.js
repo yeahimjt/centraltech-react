@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useRef } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import TopNav from '../components/TopNav'
 import { addItemToCart, addItemToSave, checkItemToSave, getByID, removeItemToSave } from '../services/productActions'

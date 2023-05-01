@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, useRef } from 'react'
 import { useParams } from 'react-router-dom'
 import TopNav from '../components/TopNav'
 import { addItemToCart, addItemToSave, checkItemToSave, getByID, removeItemToSave } from '../services/productActions'
@@ -10,7 +10,7 @@ import { getCategory } from '../services/productActions'
 import { ProductContext, UserContext } from '../services/centralContext'
 import ColumnCard from '../components/ColumnCard'
 
-const Product = ({loading}) => {
+const Product = () => {
     const {category,id} = useParams()
     const {user, setUser} = useContext(UserContext)
     const {product, setProduct} = useContext(ProductContext)

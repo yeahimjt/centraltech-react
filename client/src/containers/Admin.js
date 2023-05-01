@@ -5,7 +5,7 @@ import { getUsers } from '../services/userActions'
 import ColumnCard from '../components/ColumnCard'
 import {AiOutlineCheckCircle} from 'react-icons/ai'
 import Alert from '../components/Alert'
-import { allOrders } from '../services/orderActions'
+import { allOrders, allOrdersTotal } from '../services/orderActions'
 import { useNavigate } from 'react-router-dom'
 import AdminNav from '../components/AdminNav'
 import Pie from '../components/Pie'
@@ -20,21 +20,13 @@ const Admin = ({smallerMenu, setSmallerMenu}) => {
     const [response,setResponse] = useState(null)
     const [alertt,setAlertt] = useState(null)
     const [err,setErr] = useState(null)
+    const [total,setTotal] = useState(null)
     const nav = useNavigate()
     
-    const [totals, setTotals] = useState(Number(0))
-    const [saveds, setSaveds] = useState(Number(0))
-    useEffect(()=> {
-        orders?.map(({total, saved})=> {
-            setTotals(Number(total)+totals)
-            setSaveds(Number(saved)+saveds)
-        })
-    },[orders])
-    console.log(orders)
-    console.log(totals,saveds)
     useEffect(()=>{
         getUsers(setUsers)
         allOrders(setOrders)
+        allOrdersTotal(setTotal)
     },[])
     useEffect(()=> {
         getCategory(category, {setPopularHP: setProduct},15)

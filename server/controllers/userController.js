@@ -175,8 +175,8 @@ const purchaseCart = asyncHandler(async(req,res)=> {
     items_name: names,
     items_category: category,
     userId: userId,
-    total: String(actual),
-    saved: String(sales),
+    total: Number(actual),
+    saved: Number(sales),
   })
 
   if (createOrder) {

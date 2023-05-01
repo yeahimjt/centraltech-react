@@ -3,20 +3,29 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Order = require("../models/ordersModel")
 const User = require("../models/userModel");
-const { default: Product } = require("../../client/src/containers/Product");
+const Product = require('../models/productModel')
 const createOrder = asyncHandler(async (req, res) => {
 });
 
 const allOrdersTotal = asyncHandler(async(req,res)=> {
-    const usersOrders = await Order.find({})
-    if (usersOrders) {
-        const products = await Product.findById({userOrders})
-        res.status(200).json(products)
-    }
-    else {
-        res.status(400)
-        throw new Error("No orders found.")
-    }
+    const usersOrders = await Order.aggregate(
+        [
+          {
+            $group:
+              {
+                _id: null,
+                total: { $sum: "$total" },
+                saved: { $sum: "$saved" }   
+            },
+                
+          }
+        ]
+     )
+     if (usersOrders) {
+        console.log('i here')
+         console.log(usersOrders)
+         res.status(200).json({usersOrders})
+     }
 });
 
 const allOrders = asyncHandler(async(req,res)=> {

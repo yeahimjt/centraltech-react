@@ -22,10 +22,10 @@ const orderSchema = mongoose.Schema({
         required: [true, "Please add the user Id"]
     },
     total: {
-        type: String
+        type: Number
     },
     saved: {
-        type: String
+        type: Number
     },
     month: {
         type: String

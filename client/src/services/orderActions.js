@@ -32,6 +32,19 @@ export const allOrders = (setOrders) => {
         }
     })
 }
+export const allOrdersTotal = (setTotal) => {
+    fetch('https://centraltech.onrender.com/api/orders/allOrdersTotal', {
+        method:"GET",
+        headers: {
+            Accept: "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+        }
+    }).then((res)=> res.json()).then(data=> {
+        if (data) {
+            setTotal(data)
+        }
+    })
+}
 
 export const userSpendings = (userId, {setUserSpending}) => {
     fetch('https://centraltech.onrender.com/api/orders/getSpendings', {

@@ -1,12 +1,17 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import {AiFillHome,AiFillHeart,AiOutlineHistory} from 'react-icons/ai'
 import {GiEarthAmerica} from 'react-icons/gi'
 import {MdAdminPanelSettings} from 'react-icons/md'
 const SideNav = (location) => {
   const token = localStorage.getItem('access') ? localStorage.getItem('access') : null
+  const [contacts, setContacts] = useState(false)
+  const handleContact=()=> {
+
+  }
   return (
-    <div className='w-[300px] h-screen bg-[color:var(--black)] nav:block fixed hidden z-20'>
+    <>
+    <div className='w-[300px] h-screen bg-[color:var(--black)] nav:block fixed hidden z-20  justify-between'>
       <div className="flex justify-center pt-6 ">
         <svg className="animate-spinn" width="104" height="105" viewBox="0 0 104 105" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M41 60.43V36H48.8358H63.3089V67.0643H48.8358L41 60.43Z" fill="#131416"/>
@@ -51,7 +56,20 @@ const SideNav = (location) => {
           </section>
         }
       </div>
+      <div className="h-[400px]  m-6 flex justify-center items-start mt-52 ">
+        <div className='bg-[color:#FFFCFC] flex justfiy-center flex-col items-center p-2 py-6 rounded-2xl'>
+          <div className="flex flex-col gap-6">
+          <h1 className="text-1l text-center">Require Assistance?</h1>
+          <p className="text-base text-center mb-6">Contact us to obtain the appropriate assistance.</p>
+          </div>
+          <div className="bg-[color:var(--highlight-blue)] px-12 py-2 rounded-2xl text-white" onClick={()=>setContacts(!contacts)}>
+            <button>Contact Us</button>
+          </div>
+        </div>
+      </div>
     </div>
+    
+    </>
   )
 }
 

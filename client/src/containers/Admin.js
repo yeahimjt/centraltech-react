@@ -8,6 +8,7 @@ import Alert from '../components/Alert'
 import { allOrders, allOrdersTotal } from '../services/orderActions'
 import { useNavigate } from 'react-router-dom'
 import AdminNav from '../components/AdminNav'
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import Pie from '../components/Pie'
 
 const Admin = ({smallerMenu, setSmallerMenu}) => {
@@ -22,7 +23,21 @@ const Admin = ({smallerMenu, setSmallerMenu}) => {
     const [err,setErr] = useState(null)
     const [total,setTotal] = useState(null)
     const nav = useNavigate()
+    console.log(users)
+    const revenue_data = useMemo(() => { return (
     
+        orders && 
+        orders.map(({total, saved, createdAt, status,index})=> {
+          var date = new Date(createdAt)
+          return {
+            name: date.toLocaleString('en-gb', {day:'2-digit', month:'short', year:'numeric'}),
+            total: Number(total),
+            saved: Number(saved)
+          }
+        })
+      )
+    },[orders])
+    console.log(orders)
     useEffect(()=>{
         getUsers(setUsers)
         allOrders(setOrders)
@@ -37,29 +52,58 @@ const Admin = ({smallerMenu, setSmallerMenu}) => {
 
   return (
     <div className="nav:w-[calc(100vw-300px)] relative nav:left-[300px]  bg-right-bg nav:h-screen h-screen overflow-x-hidden">
-        <AdminNav setSection={setSection} />
+        <TopNav smallerMenu={smallerMenu} setSmallerMenu={setSmallerMenu}/>
+        <AdminNav smallerMenu={smallerMenu} setSection={setSection} />
         {section === 'Dashboard' ?
         <div className={smallerMenu ? "flex flex-col  gap-6 relative top-[240px] nav:top-[0px]":"flex flex-col  gap-6"}>
             <div className="p-6">
-                <div className="flex flex-col">
-                    <div className="flex gap-4">
+            <h1 className="text-[color:var(--blue)] drop-shadow-text text-1l homemobbreak:text-2l mb-2" style={{textShadow:"0.5px 0.5px 0px black"}}>Admin Dashboard</h1>
+                <div className="flex flex-col gap-6">
+                    <div className="flex flex-col adminbreak:flex-row gap-4">
                         <div className="flex flex-[0.5]  flex-col gap-4">
                             <div className="bg-white shadow-all flex justify-evenly">
-                                <Pie percentage={32} colour="blue"/>
-                                <h1>Total Revenue</h1>
+                                <Pie percentage={(Math.round(total?.usersOrders[0].total) / 100000)*100} colour="blue"/>
+                                <div className="flex flex-col justify-center items-center h-full">
+                                    <h1 className="text-2l">Total Revenue</h1>
+                                    <p className="text-1l">${Math.round(total?.usersOrders[0].total)}/$100,000</p>
+                                </div>
                             </div>
                             
                         </div>
                         <div className="flex flex-[0.5] flex-col gap-4">
-                            <div className="bg-white shadow-all flex justify-evenly">
-                                <Pie percentage={32} colour="blue"/>
-                                <h1>Total Revenue</h1>
-
+                        <div className="bg-white shadow-all flex justify-evenly">
+                                <Pie percentage={(Math.round(total?.usersOrders[0].saved) / 10000)*100} colour="blue"/>
+                                <div className="flex flex-col justify-center items-center h-full">
+                                    <h1 className="text-2l">Total Saved</h1>
+                                    <p className="text-1l">${Math.round(total?.usersOrders[0].saved)}/$10,000</p>
+                                </div>
                             </div>
 
                         </div>
                     </div>
-                    <div>chart</div>
+                    <div className=' w-full bg-white shadow-all py-4' style={{height:300}}>
+                    <ResponsiveContainer width="100%" height="100%">
+                        <LineChart
+                            width={500}
+                            height={100}
+                            data={revenue_data}
+                            margin={{
+                            top: 5,
+                            right: 30,
+                            left: 20,
+                            bottom: 5,
+                            }}
+                        >
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="name" />
+                        <YAxis />
+                        <Tooltip />
+                        <Legend />
+                        <Line type="monotone" dataKey="total" stroke="#004299" activeDot={{ r: 8 }} />
+                        <Line type="monotone" dataKey="saved" stroke="#64A1FF" />
+                        </LineChart>
+                    </ResponsiveContainer>
+                    </div>
                 </div>
             </div>
         </div>
@@ -69,14 +113,15 @@ const Admin = ({smallerMenu, setSmallerMenu}) => {
         {section === 'Products' ?
         <div className={smallerMenu ? "flex flex-col  gap-6 relative top-[240px] nav:top-[0px]":"flex flex-col  gap-6"}>
             <div className="p-2 productsbreak:p-6">
+            <h1 className="text-[color:var(--blue)] drop-shadow-text text-1l homemobbreak:text-2l" style={{textShadow:"0.5px 0.5px 0px black"}}>Products Database</h1>
             <div className="flex gap-6 flex-col productsbreak:flex-row">
-                <div className="w-[200px] productsbreak:w-[0px] productsbreak:flex-[0.5] mx-auto h-[80px] flex bg-white rounded-md shadow-all justify-center items-center">
+                <div className="w-[200px] productsbreak:w-[0px] productsbreak:flex-[0.5]  h-[80px] flex bg-white rounded-md shadow-all justify-center items-center my-6">
                     <div className="justify-between">
                         <p>Total # of Products: {product?.length}</p>
                     </div>
                 </div> 
             </div>
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-6 my-6">
                 <div className="flex gap-6 flex-wrap justify-center productsbreak:justify-start">
                     <button className="bg-[color:var(--blue)] px-8 py-1 rounded-full text-white hover:scale-105 hover:cursor-pointer" onClick={()=>setCategory('All')}>All</button>
                     <button className="bg-[color:var(--blue)] px-8 py-1 rounded-full text-white hover:scale-105 hover:cursor-pointer" onClick={()=>setCategory('Computers')}>Computers</button>
@@ -97,8 +142,9 @@ const Admin = ({smallerMenu, setSmallerMenu}) => {
         }
         {section === 'Users' ? 
         <div className={smallerMenu ? "flex flex-col p-2 productsbreak:p-6 gap-6 relative top-[240px] nav:top-[0px]":"flex flex-col p-2 productsbreak:p-6 gap-6"}>
+            <h1 className="text-[color:var(--blue)] drop-shadow-text text-1l homemobbreak:text-2l mb-2" style={{textShadow:"0.5px 0.5px 0px black"}}>Users Database</h1>
             <div className="flex gap-6 flex-col productsbreak:flex-row">
-                <div className="w-[200px] productsbreak:w-[0px] productsbreak:flex-[0.5] mx-auto h-[80px] flex bg-white rounded-md shadow-all justify-center items-center">
+                <div className="w-[200px] productsbreak:w-[0px] productsbreak:flex-[0.5]  h-[80px] flex bg-white rounded-md shadow-all justify-center items-center">
                     <div className="justify-between">
                         <p>Total # of Users: {users?.users.length}</p>
                     </div>
@@ -121,8 +167,8 @@ const Admin = ({smallerMenu, setSmallerMenu}) => {
                             <td className="border-b-2 text-center  text-xss td:text-base">{item.createdAt.split('T')[0]}</td>
                             <td className="border-b-2 text-center text-xss td:text-base">{item.username}</td>
                             <td className="border-b-2 text-center text-xss td:text-base">{item.email}</td>
-                            <td className="border-b-2 text-center text-xss td:text-base">{Math.round(item.total_saved * 100) / 100}</td>
-                            <td className="border-b-2 text-center text-xss td:text-base">{Math.round(item.total*100)/100}</td>
+                            <td className="border-b-2 text-center text-xss td:text-base">${Math.round(item.total_saved * 100) / 100 || 0}</td>
+                            <td className="border-b-2 text-center text-xss td:text-base">${Math.round(item.total*100)/100 || 0}</td>
                             {/* <td className="flex justify-center items-center hover:scale-105 hover:cursor-pointer transition-all" onClick={()=>setEditUser([true, item._id])}><MdEdit size={20} className="flex justify-center items-center"/></td> */}
                         </tr>
                     )
@@ -136,8 +182,10 @@ const Admin = ({smallerMenu, setSmallerMenu}) => {
         {section === 'Orders' ? 
         <div className={smallerMenu ? "flex flex-col p-2 productsbreak:p-6 gap-6 relative top-[240px] nav:top-[0px]":"flex flex-col p-2 productsbreak:p-6 gap-6"}>
 
+            <h1 className="text-[color:var(--blue)] drop-shadow-text text-1l homemobbreak:text-2l mb-2" style={{textShadow:"0.5px 0.5px 0px black"}}>Orders Database</h1>
             <div className="flex gap-6 flex-col productsbreak:flex-row">
-                <div className="w-[200px] productsbreak:w-[0px] productsbreak:flex-[0.5] mx-auto h-[80px] flex bg-white rounded-md shadow-all justify-center items-center">
+
+                <div className="w-[200px] productsbreak:w-[0px] productsbreak:flex-[0.5]  h-[80px] flex bg-white rounded-md shadow-all justify-center items-center">
                     <div className="justify-between">
                         <p>Total # of Orders: {orders?.length}</p>
                     </div>
@@ -159,7 +207,7 @@ const Admin = ({smallerMenu, setSmallerMenu}) => {
                   <p className="hover:text-[color:var(--highlight-blue)] hover:cursor-pointer text-xss history:text-base" onClick={()=>nav(`/product/${item?.items_category[index]}/${item?.items_id[index]}`)}>{single},</p>
                   )}</td>
                   <td className={item.fulfilled ? "border-b-2 p-0 text-center text-[color:var(--highlight-blue)] text-xss history:text-base" : "border-b-2 p-0 text-center text-red-500 text-xss history:text-base"}>{item.fulfilled ? 'Fulfilled' : 'Pending'}</td>
-                  <td className="border-b-2 p-0 text-center text-xss history:text-base">${item.saved}</td>
+                  <td className="border-b-2 p-0 text-center text-xss history:text-base">${String(item.saved)}</td>
                   <td className="border-b-2 p-0 history:p-2 text-center text-xss history:text-base">${Math.round(item.total)}</td>
                 </tr>
               )}

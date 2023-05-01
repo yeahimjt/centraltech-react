@@ -7,7 +7,7 @@ import { Current, purchaseCart } from '../services/userActions'
 import Purchase from '../assets/login/purchase.png'
 import { useNavigate } from 'react-router-dom'
 
-const Cart = () => {
+const Cart = ({smallerMenu, setSmallerMenu}) => {
   const {user, setUser} = useContext(UserContext);
   const [cart, setCart] = useState(null)
   const [response,setResponse] = useState(null)
@@ -26,8 +26,8 @@ const Cart = () => {
   console.log(cart)
   return (
     <div className="nav:w-[calc(100vw-300px)] relative nav:left-[300px]  bg-right-bg h-screen overflow-x-hidden">
-        <TopNav />
-        <div className="flex gap-4 p-6">
+        <TopNav smallerMenu={smallerMenu} setSmallerMenu={setSmallerMenu}/>
+        <div className={smallerMenu  ? "flex flex-col cartbreak:flex-row gap-4 p-6 relative top-[230px] nav:top-[0px]" : "flex flex-col cartbreak:flex-row gap-4 p-6"}>
           <div className="flex-[0.6] bg-white shadow-all p-4"> 
             <div className="flex justify-between items-center">
               <h1 className="text-2l">Cart</h1>
@@ -64,7 +64,7 @@ const Cart = () => {
               <div className="flex justify-between">
                 <h1>Tax</h1>
                 {cart?.length > 0 ? 
-                <p>${cart?.reduce((total,item)=>total+(Number(item.sale) ? Number(item.sale) : Number(item.price)),0)*0.10}</p>
+                <p>${Math.round(cart?.reduce((total,item)=>total+(Number(item.sale) ? Number(item.sale) : Number(item.price)),0)*0.10 * 100)/100}</p>
                 :
                 <p>0.00</p>
 
@@ -81,7 +81,7 @@ const Cart = () => {
               <div className="flex justify-between">
                 <h1>Actual</h1>
                 {cart?.length > 0 ?
-                <p>${cart?.reduce((total,item)=>total+(Number(item.sale) ? Number(item.sale) : Number(item.price)),0)+cart?.reduce((total,item)=>total+(Number(item.sale) ? Number(item.sale) : Number(item.price)),0)*0.10+8}</p>
+                <p>${Math.round((cart?.reduce((total,item)=>total+(Number(item.sale) ? Number(item.sale) : Number(item.price)),0)+cart?.reduce((total,item)=>total+(Number(item.sale) ? Number(item.sale) : Number(item.price)),0)*0.10+8)*100)/100}</p>
                 :
                 <p>0.00</p>
                 }

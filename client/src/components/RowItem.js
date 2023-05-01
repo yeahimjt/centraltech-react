@@ -1,13 +1,18 @@
 import React, { useContext, useState } from 'react'
 import {BsFillTrashFill} from 'react-icons/bs'
-import { UserContext } from '../services/centralContext'
+import { ProductContext, UserContext } from '../services/centralContext'
 import { addItemToCart } from '../services/productActions'
 import { removeCartItem } from '../services/userActions'
 import { useNavigate } from 'react-router-dom'
-
+import { getByID } from '../services/productActions'
 const RowItem = ({item, setResponse, setAlertt,setErr}) => {
     const {user,setUser} = useContext(UserContext)
+    const {proudct, setProduct} = useContext(ProductContext)
     const nav = useNavigate()
+    const handleClick =()=> {
+        getByID(item?._id,{setProduct})
+        nav(`/product/${item?.category}/${item?._id}`)
+    }
     const addItem = () => {
         if (user) {
             addItemToCart(item?._id,user?.id,{setResponse})
@@ -28,7 +33,7 @@ const RowItem = ({item, setResponse, setAlertt,setErr}) => {
         }
     }
     return (
-    <div className="flex  gap-4  items-center hover:bg-[color:var(--light-blue)] hover:text-[color:var(--black)] hover:cursor-pointer rounded-full transition-all pl-4 pr-8 py-2">
+    <div className="flex  gap-4  items-center hover:bg-[color:var(--light-blue)] hover:text-[color:var(--black)] hover:cursor-pointer rounded-full transition-all pl-4 pr-8 py-2" onClick={()=>handleClick()}>
         <div className="rounded-full   w-[60px] h-[60px] flex items-center bg-white shadow-all">
             <img className="rounded-full object-scale-down w-[60px] h-[40px]" src={item?.path_url} alt="Beats"/>
         </div>

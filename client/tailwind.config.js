@@ -62,6 +62,10 @@ module.exports = {
         // Search page screens
         'searchbreak':'936px',
         'productsbreak':'820px',
+
+        'adminbreak': '835px',
+
+        'cartbreak':'990px',
       },
       boxShadow: {
         'login': '0px 4px 4px rgba(0, 0, 0, 0.25);',

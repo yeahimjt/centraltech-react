@@ -40,9 +40,11 @@ console.log(spent)
 
 
   return (
-    <div className="flex flex-col nav:w-[calc(100vw-300px)] w-full h-screen bg-right-bg overflow-x-hidden relative nav:left-[300px]">
+    <div className="flex flex-col nav:w-[calc(100vw-300px)] w-full h-screen bg-right-bg overflow-x-hidden relative nav:left-[300px] pb-16">
         <TopNav smallerMenu={smallerMenu} setSmallerMenu={setSmallerMenu}/>
         <div className={smallerMenu ? "p-2 td:p-6 flex flex-col gap-6 relative top-[230px] nav:top-[0px]": "p-2 td:p-6 flex flex-col gap-6"}>
+        <h1 className="text-[color:var(--blue)] drop-shadow-text text-1l homemobbreak:text-2l mb-2" style={{textShadow:"0.5px 0.5px 0px black"}}>Purchase History</h1>
+
         <div className=' w-full bg-white shadow-all py-4' style={{height:300}}>
           <ResponsiveContainer width="100%" height="100%">
           <LineChart

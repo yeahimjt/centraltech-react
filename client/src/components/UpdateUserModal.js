@@ -22,7 +22,7 @@ function Modal({setModal, options, user, setUser, setToken}) {
                     <AiFillCloseCircle className="relative left-4 -top-4 hover:scale-105 hover:cursor-pointer" size={26} onClick={()=>setModal(false)}/>
                 </div>
                 <input className="bg-[color:var(--input)] px-4 py-2" type="text" placeholder={options[1]} onChange={(e)=>{options[0]==="Username" ? setUsername(e.target.value) : options[0]==="Email" ? setEmail(e.target.value) : setPassword(e.target.value)}}/>
-                <button className="bg-[color:var(--highlight-blue)] text-1l hover:scale-105 hover:cursor-pointer" onClick={(e)=>handleSubmit(e)}>Update</button>
+                <button className="bg-[color:var(--highlight-blue)] text-1l hover:scale-105 hover:cursor-pointer text-white" onClick={(e)=>handleSubmit(e)}>Update</button>
             </div>
         </div>
     </div>

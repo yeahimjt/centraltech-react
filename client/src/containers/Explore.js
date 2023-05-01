@@ -41,6 +41,7 @@ const Explore = ({smallerMenu, setSmallerMenu}) => {
                         </div>
                     </div>
                 </div>
+
             <div className="flex flex-col loginbreak:flex-row pt-32 gap-6 z-20">
                 <div className="flex z-20 flex-col justfiy-center  flex-wrap flex-[0.1]  p-6 bg-white shadow-all h-fit">
                     <h1 className="mb-2 text-1l text-left">Category</h1>

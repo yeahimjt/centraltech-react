@@ -40,11 +40,11 @@ const TopNav = ({smallerMenu,setSmallerMenu}) => {
       </div>
     </div>
     <div className={smallerMenu?"absolute flex flex-col justify-center items-center w-full h-[300px] top-0 bg-[color:var(--black)] text-white gap-2 nav:invisible":"invisible"}>
-      <Link to="/" className="hover:scale-105 hover:cursor-pointer hover:text-[color:var(--highlight-blue)]">Home</Link>
-      <Link to="/explore" className="hover:scale-105 hover:cursor-pointer hover:text-[color:var(--highlight-blue)]">Explore</Link>
-      <Link to="/saved" className="hover:scale-105 hover:cursor-pointer hover:text-[color:var(--highlight-blue)]">Saved</Link>
-      <Link to="/history" className="hover:scale-105 hover:cursor-pointer hover:text-[color:var(--highlight-blue)]">Purchase History</Link>
-      <Link to="/admin" className="hover:scale-105 hover:cursor-pointer hover:text-[color:var(--highlight-blue)]">Admin Panel</Link>
+      <Link to="/" className="hover:scale-105 hover:cursor-pointer hover:text-[color:var(--highlight-blue)]" onClick={()=>setSmallerMenu(!smallerMenu)}>Home</Link>
+      <Link to="/explore" className="hover:scale-105 hover:cursor-pointer hover:text-[color:var(--highlight-blue)]" onClick={()=>setSmallerMenu(!smallerMenu)}>Explore</Link>
+      <Link to="/saved" className="hover:scale-105 hover:cursor-pointer hover:text-[color:var(--highlight-blue)]" onClick={()=>setSmallerMenu(!smallerMenu)}>Saved</Link>
+      <Link to="/history" className="hover:scale-105 hover:cursor-pointer hover:text-[color:var(--highlight-blue)]" onClick={()=>setSmallerMenu(!smallerMenu)}>Purchase History</Link>
+      <Link to="/admin" className="hover:scale-105 hover:cursor-pointer hover:text-[color:var(--highlight-blue)]" onClick={()=>setSmallerMenu(!smallerMenu)}>Admin Panel</Link>
     </div>
     </>
   )

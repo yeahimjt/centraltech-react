@@ -27,6 +27,9 @@ const orderSchema = mongoose.Schema({
     saved: {
         type: String
     },
+    month: {
+        type: String
+    }
 },
 {
     timestamps:true,

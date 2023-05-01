@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, PureComponent, useMemo } from 'react'
 import TopNav from '../components/TopNav'
 import { getCategory } from '../services/productActions'
 import { getUsers } from '../services/userActions'
@@ -7,9 +7,11 @@ import {AiOutlineCheckCircle} from 'react-icons/ai'
 import Alert from '../components/Alert'
 import { allOrders } from '../services/orderActions'
 import { useNavigate } from 'react-router-dom'
+import AdminNav from '../components/AdminNav'
+import Pie from '../components/Pie'
 
 const Admin = ({smallerMenu, setSmallerMenu}) => {
-    const [section, setSection] = useState('Products')
+    const [section, setSection] = useState('Dashboard')
     const [product, setProduct] = useState(null)
     const [users, setUsers] = useState(null)
     const [orders, setOrders] = useState(null)
@@ -19,6 +21,17 @@ const Admin = ({smallerMenu, setSmallerMenu}) => {
     const [alertt,setAlertt] = useState(null)
     const [err,setErr] = useState(null)
     const nav = useNavigate()
+    
+    const [totals, setTotals] = useState(Number(0))
+    const [saveds, setSaveds] = useState(Number(0))
+    useEffect(()=> {
+        orders?.map(({total, saved})=> {
+            setTotals(Number(total)+totals)
+            setSaveds(Number(saved)+saveds)
+        })
+    },[orders])
+    console.log(orders)
+    console.log(totals,saveds)
     useEffect(()=>{
         getUsers(setUsers)
         allOrders(setOrders)
@@ -32,20 +45,44 @@ const Admin = ({smallerMenu, setSmallerMenu}) => {
 
   return (
     <div className="nav:w-[calc(100vw-300px)] relative nav:left-[300px]  bg-right-bg nav:h-screen h-screen overflow-x-hidden">
-        <TopNav smallerMenu={smallerMenu} setSmallerMenu={setSmallerMenu} />
-        {section === 'Products' ?
-        <div className={smallerMenu ? "flex flex-col p-2 productsbreak:p-6 gap-6 relative top-[240px] nav:top-[0px]":"flex flex-col p-2 productsbreak:p-6 gap-6"}>
-            <div className="flex gap-6 justify-center productsbreak:justify-start">
-                <button className="bg-[color:var(--highlight-blue)] px-8 py-1 rounded-full text-white hover:scale-105 hover:cursor-pointer" onClick={()=>setSection('Products')}>Products</button>
-                <button className="bg-[color:var(--highlight-blue)] px-8 py-1 rounded-full text-white hover:scale-105 hover:cursor-pointer" onClick={()=>setSection('Users')}>Users</button>
-                <button className="bg-[color:var(--highlight-blue)] px-8 py-1 rounded-full text-white hover:scale-105 hover:cursor-pointer" onClick={()=>setSection('Orders')}>Orders</button>
+        <AdminNav setSection={setSection} />
+        {section === 'Dashboard' ?
+        <div className={smallerMenu ? "flex flex-col  gap-6 relative top-[240px] nav:top-[0px]":"flex flex-col  gap-6"}>
+            <div className="p-6">
+                <div className="flex flex-col">
+                    <div className="flex gap-4">
+                        <div className="flex flex-[0.5]  flex-col gap-4">
+                            <div className="bg-white shadow-all flex justify-evenly">
+                                <Pie percentage={32} colour="blue"/>
+                                <h1>Total Revenue</h1>
+                            </div>
+                            
+                        </div>
+                        <div className="flex flex-[0.5] flex-col gap-4">
+                            <div className="bg-white shadow-all flex justify-evenly">
+                                <Pie percentage={32} colour="blue"/>
+                                <h1>Total Revenue</h1>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div>chart</div>
+                </div>
             </div>
+        </div>
+        :
+        ''
+        }
+        {section === 'Products' ?
+        <div className={smallerMenu ? "flex flex-col  gap-6 relative top-[240px] nav:top-[0px]":"flex flex-col  gap-6"}>
+            <div className="p-2 productsbreak:p-6">
             <div className="flex gap-6 flex-col productsbreak:flex-row">
                 <div className="w-[200px] productsbreak:w-[0px] productsbreak:flex-[0.5] mx-auto h-[80px] flex bg-white rounded-md shadow-all justify-center items-center">
                     <div className="justify-between">
                         <p>Total # of Products: {product?.length}</p>
                     </div>
-                </div>
+                </div> 
             </div>
             <div className="flex flex-col gap-6">
                 <div className="flex gap-6 flex-wrap justify-center productsbreak:justify-start">
@@ -61,17 +98,13 @@ const Admin = ({smallerMenu, setSmallerMenu}) => {
                     )}
                 </div>
             </div>
+            </div>
         </div>
         :
         ''
         }
         {section === 'Users' ? 
         <div className={smallerMenu ? "flex flex-col p-2 productsbreak:p-6 gap-6 relative top-[240px] nav:top-[0px]":"flex flex-col p-2 productsbreak:p-6 gap-6"}>
-            <div className="flex gap-6 justify-center productsbreak:justify-start">
-                <button className="bg-[color:var(--highlight-blue)] px-8 py-1 rounded-full text-white hover:scale-105 hover:cursor-pointer" onClick={()=>setSection('Products')}>Products</button>
-                <button className="bg-[color:var(--highlight-blue)] px-8 py-1 rounded-full text-white hover:scale-105 hover:cursor-pointer" onClick={()=>setSection('Users')}>Users</button>
-                <button className="bg-[color:var(--highlight-blue)] px-8 py-1 rounded-full text-white hover:scale-105 hover:cursor-pointer" onClick={()=>setSection('Orders')}>Orders</button>
-            </div>
             <div className="flex gap-6 flex-col productsbreak:flex-row">
                 <div className="w-[200px] productsbreak:w-[0px] productsbreak:flex-[0.5] mx-auto h-[80px] flex bg-white rounded-md shadow-all justify-center items-center">
                     <div className="justify-between">
@@ -110,11 +143,7 @@ const Admin = ({smallerMenu, setSmallerMenu}) => {
         }
         {section === 'Orders' ? 
         <div className={smallerMenu ? "flex flex-col p-2 productsbreak:p-6 gap-6 relative top-[240px] nav:top-[0px]":"flex flex-col p-2 productsbreak:p-6 gap-6"}>
-            <div className="flex gap-6 justify-center productsbreak:justify-start">
-                <button className="bg-[color:var(--highlight-blue)] px-8 py-1 rounded-full text-white hover:scale-105 hover:cursor-pointer" onClick={()=>setSection('Products')}>Products</button>
-                <button className="bg-[color:var(--highlight-blue)] px-8 py-1 rounded-full text-white hover:scale-105 hover:cursor-pointer" onClick={()=>setSection('Users')}>Users</button>
-                <button className="bg-[color:var(--highlight-blue)] px-8 py-1 rounded-full text-white hover:scale-105 hover:cursor-pointer" onClick={()=>setSection('Orders')}>Orders</button>
-            </div>
+
             <div className="flex gap-6 flex-col productsbreak:flex-row">
                 <div className="w-[200px] productsbreak:w-[0px] productsbreak:flex-[0.5] mx-auto h-[80px] flex bg-white rounded-md shadow-all justify-center items-center">
                     <div className="justify-between">

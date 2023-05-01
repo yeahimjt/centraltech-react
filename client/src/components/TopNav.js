@@ -26,11 +26,11 @@ const TopNav = ({smallerMenu,setSmallerMenu}) => {
         </div>
       </div>
       <div className="topnavbreak:w-[30%] flex justify-evenly items-center">
-        <Link to="/cart"><ImCart className="text-[color:var(--black)]" size={32}/></Link>
+        <Link to="/cart"><ImCart className="text-[color:var(--black)] hover:text-[color:var(--highlight-blue)]" size={32}/></Link>
         {localStorage.getItem('access') !== '' ? 
-        <Link to="/profile"><BsPersonFillCheck className="text-[color:var(--black)]" size={32}/></Link>
+        <Link to="/profile"><BsPersonFillCheck className="text-[color:var(--black)] hover:text-[color:var(--highlight-blue)]" size={32}/></Link>
         :
-        <Link to="/login"><BsFillPersonFill className="text-[color:var(--black)]" size={32}/></Link>
+        <Link to="/login"><BsFillPersonFill className="text-[color:var(--black)] hover:text-[color:var(--highlight-blue)]" size={32}/></Link>
         }
         <TbBellFilled className="text-[color:var(--black)] animate-bellShake hover:animate-none hover:cursor-pointer hover:text-[color:var(--highlight-blue)]" size={32}/>
         <RxHamburgerMenu className={!smallerMenu?"text-[color:var(--black)] hover:cursor-pointer z-20 nav:hidden hover:text-[color:var(--highlight-blue)]":"text-[color:var(--light)] hover:cursor-pointer z-20 nav:hidden hover:text-red-500"} size={32} 

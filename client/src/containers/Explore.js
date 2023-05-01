@@ -27,7 +27,7 @@ const Explore = ({smallerMenu, setSmallerMenu}) => {
     <div className="">
         <div className={smallerMenu ? "nav:w-[calc(100vw-300px)] relative nav:left-[300px]  bg-right-bg nav:h-screen h-screen overflow-x-hidden" : "nav:w-[calc(100vw-300px)] relative nav:left-[300px] nav:top-[0px] bg-right-bg nav:h-screen h-screen overflow-x-hidden"}>
             <TopNav smallerMenu={smallerMenu} setSmallerMenu={setSmallerMenu}/>
-            <div className={smallerMenu ? "flex flex-col p-6 relative top-[200px] nav:top-[0px]" : "flex flex-col p-6 "}>
+            <div className={smallerMenu ? "flex flex-col p-32 relative top-[200px] nav:top-[0px] gap-6" : "flex flex-col p-6  "}>
                     <h1 className="text-[color:var(--blue)] drop-shadow-text text-1l homemobbreak:text-2l mb-2" style={{textShadow:"0.5px 0.5px 0px black"}}>Our Best Sale!</h1>
                 <div className="flex flex-col recom:flex-row gap-16">
                     <div className="flex-[0.6] flex flex-col justify-start items-start">
@@ -41,26 +41,28 @@ const Explore = ({smallerMenu, setSmallerMenu}) => {
                         </div>
                     </div>
                 </div>
-            <div className="flex flex-col z-20  pt-24 pb-6">
-                <h1 className="mb-2">Explore by category...</h1>
-                <div className="flex justify-center filters:justify-start gap-3 categories:gap-6 flex-wrap">
-                    <button className="w-[90px] bg-[color:var(--light-blue)] text-white categories:w-[150px] border-2 hover:border-[color:var(--blue)] hover:cursor-pointer hover:scale-105  rounded-full hover:bg-white hover:text-black transition-all py-2 text-xss flex justify-center items-center gap-2 categories:gap-6 categories:text-xm" onClick={()=>setCategory('All')}>All</button>
-                    <button className="w-[90px] bg-[color:var(--light-blue)] text-white categories:w-[150px] border-2 hover:border-[color:var(--blue)] hover:cursor-pointer hover:scale-105  rounded-full hover:bg-white hover:text-black transition-all py-2 text-xss flex justify-center items-center gap-2 categories:gap-6 categories:text-xm" onClick={()=>setCategory('Computers')}><GrDesktop size={18}/>Computers</button>
-                    <button className="w-[90px] bg-[color:var(--light-blue)] text-white categories:w-[150px] border-2 hover:border-[color:var(--blue)] hover:cursor-pointer hover:scale-105  rounded-full hover:bg-white hover:text-black transition-all py-2 text-xss flex justify-center items-center gap-2 categories:gap-6 categories:text-xm" onClick={()=>setCategory('Laptops')}><BsLaptop size={18}/>Laptops</button>
-                    <button className="w-[90px] bg-[color:var(--light-blue)] text-white categories:w-[150px] border-2 hover:border-[color:var(--blue)] hover:cursor-pointer hover:scale-105  rounded-full hover:bg-white hover:text-black transition-all py-2 text-xss flex justify-center items-center gap-2 categories:gap-6 categories:text-xm" onClick={()=>setCategory('Headphones')}><BsHeadphones size={18}/>Headphones</button>
-                    <button className="w-[90px] bg-[color:var(--light-blue)] text-white categories:w-[150px] border-2 hover:border-[color:var(--blue)] hover:cursor-pointer hover:scale-105  rounded-full hover:bg-white hover:text-black transition-all py-2 text-xss flex justify-center items-center gap-2 categories:gap-6 categories:text-xm" onClick={()=>setCategory('Keyboards')}><BsFillKeyboardFill size={18}/>Keyboards</button>
-                </div>
-            </div>
-            <div className="bg-white shadow-all p-6 flex flex-[0.5] flex-col z-20">
-                    <div className="flex justify-between items-center">
-                        <h1 className="text-1l homemobbreak:text-2l mb-2">{category}</h1>
-                        <p>see all...</p>
+            <div className="flex flex-col loginbreak:flex-row pt-32 gap-6 z-20">
+                <div className="flex z-20 flex-col justfiy-center  flex-wrap flex-[0.1]  p-6 bg-white shadow-all h-fit">
+                    <h1 className="mb-2 text-1l text-left">Category</h1>
+                    <div className="flex justify-center filters:justify-center gap-3 categories:gap-6 flex-wrap ">
+                        <button className="w-[90px] bg-[color:var(--light-blue)] text-white categories:w-[150px] border-2 hover:border-[color:var(--blue)] hover:cursor-pointer hover:scale-105  rounded-full hover:bg-white hover:text-black transition-all py-2 text-xss flex justify-center items-center gap-2 categories:gap-6 categories:text-xm" onClick={()=>setCategory('All')}>All</button>
+                        <button className="w-[90px] bg-[color:var(--light-blue)] text-white categories:w-[150px] border-2 hover:border-[color:var(--blue)] hover:cursor-pointer hover:scale-105  rounded-full hover:bg-white hover:text-black transition-all py-2 text-xss flex justify-center items-center gap-2 categories:gap-6 categories:text-xm" onClick={()=>setCategory('Computers')}><GrDesktop size={18}/>Computers</button>
+                        <button className="w-[90px] bg-[color:var(--light-blue)] text-white categories:w-[150px] border-2 hover:border-[color:var(--blue)] hover:cursor-pointer hover:scale-105  rounded-full hover:bg-white hover:text-black transition-all py-2 text-xss flex justify-center items-center gap-2 categories:gap-6 categories:text-xm" onClick={()=>setCategory('Laptops')}><BsLaptop size={18}/>Laptops</button>
+                        <button className="w-[90px] bg-[color:var(--light-blue)] text-white categories:w-[150px] border-2 hover:border-[color:var(--blue)] hover:cursor-pointer hover:scale-105  rounded-full hover:bg-white hover:text-black transition-all py-2 text-xss flex justify-center items-center gap-2 categories:gap-6 categories:text-xm" onClick={()=>setCategory('Headphones')}><BsHeadphones size={18}/>Headphones</button>
+                        <button className="w-[90px] bg-[color:var(--light-blue)] text-white categories:w-[150px] border-2 hover:border-[color:var(--blue)] hover:cursor-pointer hover:scale-105  rounded-full hover:bg-white hover:text-black transition-all py-2 text-xss flex justify-center items-center gap-2 categories:gap-6 categories:text-xm" onClick={()=>setCategory('Keyboards')}><BsFillKeyboardFill size={18}/>Keyboards</button>
                     </div>
-                    <hr/>
-                    <div className="flex justify-center gap-3 category:gap-8 flex-wrap mt-6">
-                        {computer?.map((item) => 
-                        <ColumnCard key={item._id} item={item} setResponse={setResponse} setAlertt={setAlertt} setErr={setErr}/>
-                        )}
+                </div>
+                <div className=" p-6 pt-0 flex flex-[0.9] flex-col z-20">
+                        <div className="flex justify-between items-center">
+                            <h1 className="text-1l homemobbreak:text-2l mb-2">{category}</h1>
+                            <p>see all...</p>
+                        </div>
+                        <hr/>
+                        <div className="flex justify-center gap-3 category:gap-8 flex-wrap mt-6">
+                            {computer?.map((item) => 
+                            <ColumnCard key={item._id} item={item} setResponse={setResponse} setAlertt={setAlertt} setErr={setErr}/>
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>

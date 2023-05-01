@@ -165,7 +165,7 @@ const Product = ({loading}) => {
             </div>
             <div className="flex flex-col">
                 <h1 className="text-[color:var(--blue)]  text-1l homemobbreak:text-2l mb-2" style={{textShadow:"0.5px 0.5px 0px black"}}>More {product?.category} products</h1>
-                <div className="flex gap-4 justify-evenly flex-wrap">
+                <div className="flex gap-4 justify-start flex-wrap">
                     {simProduct?.length > 0 ?
                         simProduct.map((item)=> 
                             // If current product is fetched from Category call, do not display it.
